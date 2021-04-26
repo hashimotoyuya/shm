@@ -1,0 +1,28 @@
+2010-02-04:
+* bugfix: a buffer overflow is occurred on ubuntu 9.1.0 and later version.
+	  It is caused by a code, buf[strlen(...)] on entry.c. 
+	  They are changed to buf[BUF_SIZE].  
+
+2008-11-08:
+* modified: entry files are mermit to write/read on the others in default.
+
+2006-11-26:
+* bugfix: entry format has problem in info message. 
+          bugfix in  mk_format() and _shm_append_key().
+
+2006-07-19:
+* bugfix: format of shm_show_info, small size message under four characters
+* addition of creator's name in shm_show_info
+
+2004-11-26
+==========
+* bugfix
+
+2004-10-08
+==========
+* second release
+* recording the key and information in the list file
+
+2003-11-05
+==========
+* first release

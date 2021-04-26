@@ -1,0 +1,85 @@
+Manual, Copyright(C) 2003, 2004, Ozaki Lab., Utsunomiya Univ.
+Koichi OZAKI <ozaki@cc.utsunomiya-u.ac.jp>, 2004-11-17
+======================================================================
+名前
+      SHM_VERSION - shmライブラリのバージョン定義
+
+書式
+      #define SHM_VERSION	"version code"
+
+説明
+      バージョン番号の定義．20041007以降より定義化された．
+
+----------------------------------------------------------------------
+名前
+      shm_get_buf, shm_rm_key - 共有メモリの確保と消去
+
+書式
+      #include "shm.h"
+
+      void * shm_get_buf(unsigned int key, unsigned int size);
+      int    shm_rm_key(unsinged int key);
+
+説明
+      共有メモリを取得し，解放する．shm_get_bufは，keyで指定したID番号
+      でsizeで指定したサイズのメモリを確保する．また，shm_rm_keyはすで
+      に確保したメモリを解放する．なお，メモリの確保の状況は，
+      /tmp/shm_info.txt に記録される．
+
+      なお，この関数は20031105バージョンのAPIから変更なし．
+
+返値
+      shm_get_buf でメモリを確保できた場合には，共有メモリのポインタを
+      返す．メモリを確保できない場合には，NULLを返す．
+
+      shm_rm_key は，メモリの解放に成功した場合には 0 を返す．失敗した
+      場合には 1 を返す．
+
+----------------------------------------------------------------------
+名前
+      shm_write_info, shm_read_info - 共有メモリの情報の書込みと読込み
+
+書式
+      #include "shm.h"
+
+      int shm_write_info(unsigned int key, char *info);
+      int shm_read_info(
+                        unsinged int key,   /* key番号 */
+                        unsigned int *size, /* メモリのサイズ */
+                        unsigned int *pid,  /* 作成したプログラムのPID */
+                        char *info          /* 共有メモリの情報 */
+                        );
+
+説明
+      keyで指定した記録ファイル（/tmp/shm_info.txt）の情報を操作する．
+      shm_write_infoは，keyで指定した情報をinfoに書き変える．shm_read_
+      infoは，keyでした共有メモリの情報をsize, pid, infoに代入する．
+
+返値
+      成功した場合には 0，失敗した場合には 1 を返す．
+
+----------------------------------------------------------------------
+名前
+      shm_show_info - 共有メモリ情報の表示
+書式
+      shm_show_info [options] [key num ...]
+
+説明
+      共有メモリ情報を表示する．オプション，キー番号を指定しない場合に
+      は，記録ファイルをそのまま表示する．キーを指定した場合には，指定
+      したキーの情報を表示する．
+
+オプション
+      -a	記録ファイルをすべて表示する（デフォルト）．
+
+      -r	指定したキーの共有メモリを消去する．
+
+      -R	すべての記録ファイルを消去する．
+
+      -h	ヘルプの表示
+
+======================================================================
+尾崎功一（おざきこういち）<ozaki@cc.utsunomiya-u.ac.jp>, 2003-11-17
+
+2004-11-17: shm_show_info のオプション -R を追加
+2004-10-08: 1st release 
